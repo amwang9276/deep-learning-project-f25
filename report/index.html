@@ -1,0 +1,1134 @@
+<html>
+
+<head>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+		MathJax = {
+			tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+		};
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+	<link rel="shortcut icon" href="images/icon.ico">
+	<style type="text/css">
+		body {
+			background-color: #f5f9ff;
+		}
+
+		/* Hide both math displays initially, will display based on JS detection */
+		.mathjax-mobile,
+		.mathml-non-mobile {
+			display: none;
+		}
+
+		/* Show the MathML content by default on non-mobile devices */
+		.show-mathml .mathml-non-mobile {
+			display: block;
+		}
+
+		.show-mathjax .mathjax-mobile {
+			display: block;
+		}
+
+		.content-margin-container {
+			display: flex;
+			width: 100%;
+			/* Ensure the container is full width */
+			justify-content: left;
+			/* Horizontally centers the children in the container */
+			align-items: center;
+			/* Vertically centers the children in the container */
+		}
+
+		.main-content-block {
+			width: 70%;
+			/* Change this percentage as needed */
+			max-width: 1100px;
+			/* Optional: Maximum width */
+			background-color: #fff;
+			border-left: 1px solid #DDD;
+			border-right: 1px solid #DDD;
+			padding: 8px 8px 8px 8px;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+			#"Avenir";
+		}
+
+		.margin-left-block {
+			font-size: 14px;
+			width: 15%;
+			/* Change this percentage as needed */
+			max-width: 130px;
+			/* Optional: Maximum width */
+			position: relative;
+			margin-left: 10px;
+			text-align: left;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+			#"Avenir";
+			padding: 5px;
+		}
+
+		.margin-right-block {
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+			#"Avenir";
+			font-size: 14px;
+			width: 25%;
+			/* Change this percentage as needed */
+			max-width: 256px;
+			/* Optional: Maximum width */
+			position: relative;
+			text-align: left;
+			padding: 10px;
+			/* Optional: Adds padding inside the caption */
+		}
+
+		img {
+			max-width: 100%;
+			/* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+		}
+
+		.my-video {
+			max-width: 100%;
+			/* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+		}
+
+		/* Hide both video displays initially, will display based on JS detection */
+		.vid-mobile,
+		.vid-non-mobile {
+			display: none;
+		}
+
+		/* Show the video content by default on non-mobile devices */
+		.show-vid-mobile .vid-mobile {
+			display: block;
+		}
+
+		.show-vid-non-mobile .vid-non-mobile {
+			display: block;
+		}
+
+		a:link,
+		a:visited {
+			color: #0e7862;
+			/*#1367a7;*/
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: #24b597;
+			/*#208799;*/
+		}
+
+		h1 {
+			font-size: 24px;
+			margin-top: 4px;
+			margin-bottom: 10px;
+		}
+
+		h2 {
+			font-size: 18px;
+			margin-top: 12px;
+			margin-bottom: 6px;
+		}
+
+		figcaption {
+			font: italic smaller sans-serif;
+			text-align: center;
+		}
+
+		table.header {
+			font-weight: 300;
+			font-size: 17px;
+			flex-grow: 1;
+			width: 70%;
+			max-width: calc(100% - 290px);
+			/* Adjust according to the width of .paper-code-tab */
+		}
+
+		table td,
+		table td * {
+			vertical-align: middle;
+			position: relative;
+		}
+
+		table.paper-code-tab {
+			flex-shrink: 0;
+			margin-left: 8px;
+			margin-top: 8px;
+			padding: 0px 0px 0px 8px;
+			width: 290px;
+			height: 150px;
+		}
+
+		.layered-paper {
+			/* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+			box-shadow:
+				0px 0px 1px 1px rgba(0, 0, 0, 0.35),
+				/* The top layer shadow */
+				5px 5px 0 0px #fff,
+				/* The second layer */
+				5px 5px 1px 1px rgba(0, 0, 0, 0.35),
+				/* The second layer shadow */
+				10px 10px 0 0px #fff,
+				/* The third layer */
+				10px 10px 1px 1px rgba(0, 0, 0, 0.35);
+			/* The third layer shadow */
+			margin-top: 5px;
+			margin-left: 10px;
+			margin-right: 30px;
+			margin-bottom: 5px;
+		}
+
+		hr {
+			height: 1px;
+			/* Sets the height of the line to 1 pixel */
+			border: none;
+			/* Removes the default border */
+			background-color: #DDD;
+			/* Sets the line color to black */
+		}
+
+		div.hypothesis {
+			width: 80%;
+			background-color: #EEE;
+			border: 1px solid black;
+			border-radius: 10px;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			font-family: Courier;
+			font-size: 18px;
+			text-align: center;
+			margin: auto;
+			padding: 16px 16px 16px 16px;
+		}
+
+		div.citation {
+			font-size: 0.8em;
+			background-color: #fff;
+			padding: 10px;
+			height: 200px;
+		}
+
+		.fade-in-inline {
+			position: absolute;
+			text-align: center;
+			margin: auto;
+			-webkit-mask-image: linear-gradient(to right,
+					transparent 0%,
+					transparent 40%,
+					black 50%,
+					black 90%,
+					transparent 100%);
+			mask-image: linear-gradient(to right,
+					transparent 0%,
+					transparent 40%,
+					black 50%,
+					black 90%,
+					transparent 100%);
+			-webkit-mask-size: 8000% 100%;
+			mask-size: 8000% 100%;
+			animation-name: sweepMask;
+			animation-duration: 4s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			animation-delay: -1s;
+		}
+
+		.fade-in2-inline {
+			animation-delay: 1s;
+		}
+
+		.inline-div {
+			position: relative;
+			display: inline-block;
+			/* Makes both the div and paragraph inline-block elements */
+			vertical-align: top;
+			/* Aligns them at the top, you can adjust this to middle, bottom, etc., based on your needs */
+			width: 50px;
+			/* Optional: Adds space between the div and the paragraph */
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			border: 1px solid #DDD;
+			padding: 6px 10px;
+			text-align: left;
+			font-size: 14px;
+		}
+	</style>
+
+	<title>Latent Geometry and Generative Behavior of Contrastively Learned Autoencoders</title>
+	<meta property="og:title" content="Latent Geometry and Generative Behavior of Contrastively Learned Autoencoders" />
+	<meta charset="UTF-8">
+</head>
+
+<body>
+
+	<div class="content-margin-container">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<table class="header" align=left>
+				<tr>
+					<td colspan=4>
+						<span
+							style="font-size: 32px; font-family: 'Courier New', Courier, monospace; /* Adds fallbacks */">Latent
+							Geometry and Generative Behavior of Contrastively Learned Autoencoders</span>
+					</td>
+				</tr>
+				<tr>
+					<td align=left>
+						<span style="font-size:17px">Angelina Ning</span>
+					</td>
+					<td align=left>
+						<span style="font-size:17px">Angelika Wang</span>
+					</td>
+				<tr>
+					<td colspan=4 align=left><span style="font-size:18px">Final project for 6.7960, MIT</span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="margin-right-block">
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="intro">
+		<div class="margin-left-block">
+			<!-- table of contents here -->
+			<div style="position:fixed; max-width:inherit; top:max(20%,120px)">
+				<b style="font-size:16px">Outline</b><br><br>
+				<a href="#intro">Introduction</a><br><br>
+				<a href="#bkgd">Background and Related Work</a><br><br>
+				<a href="#methods">Methods</a><br><br>
+				<a href="#results">Results</a><br><br>
+				<a href="#imp_lim">Implications and Limitations</a><br><br>
+				<a href="#ref">References</a><br><br>
+				<a href="#appx">Appendix</a><br><br>
+			</div>
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="intro">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Introduction</h1>
+			<p>
+				<!-- Motivate your project. What question are you asking. Why is it unanswered so far? What gap in the literature or practice are you filling? Why is it important? -->
+				Contrastive learning has emerged as one of the most powerful paradigms for self-supervised
+				representation learning, producing feature spaces that outperform autoencoders and even supervised
+				models across many discriminative tasks [1][3][10].
+			</p>
+
+
+			<p>
+				Despite these successes, the internal structure and interpretability of contrastive embedding spaces
+				remains underexplored. Prior theoretical and empirical analyses show that contrastive learning tends to
+				produce representations that satisfy alignment (pulling positives together) and uniformity (spreading
+				embeddings across the hypersphere), a product of the inductive biases enforced by the desing on the
+				contrastive loss term [9]. Furthermore, we see that robust, semantically meaningful
+				class structures often emerges even without labels [10]. However,
+				these analyses primarily examine global behaviors, such as cluster compactness, inter-class separation,
+				or overall hyperspherical distribution, and do not consider the semantics of the embedding space itself
+				and out-of-distribution areas.
+			</p>
+
+			<p>
+				What's more, existing literature overwhelmingly focuses on downstream performance or cluster geometry,
+				leaving open the question of what information contrastive embeddings actually retain about input pixels
+				and whether they can support image generation [11].
+			</p>
+
+
+			<p>
+				Understanding the latent structure of contrastive models is important for two reasons not only for
+				advancing interpretability, but it also informs ongoing efforts to integrate contrastive priors into
+				generativ emodels like contrastive GANs [12] and cross-modal contrastive generators [13] by revealing
+				whether contrastive
+				embeddings themselves are suitable substrates for reconstruction, interpolation, and controlled
+				generation.
+			</p>
+
+			<p>
+				Thus, this motivates the following for what we will be investigating in this project:
+			</p>
+
+			<p style="text-align: center;">
+				<em>
+					What semantic information is encoded within contrastive latent spaces, within clusters and in the
+					inter-cluster regions, and can this structure be leveraged for novel image generation?
+				</em>
+			</p>
+
+			<p>
+				To approach this problem, we used MNIST data in order to analyze latent organization, reconstruction
+				quality, and generative behavior. There are two main challenges when it comes to closing the gap between
+				contrastive learning and generative models:
+			<ul>
+				<li>Training a decoder from the contrastive embbeding space back into the image space</li>
+				<li>Defining a sampling distribution over the embedding space for image generation</li>
+			</ul>
+			To tackle these challenges, we introduce a suite of training schemes that pair contrastive encoders
+			with decoders, explore multiple definitions of positive pairs, and compare joint versus separate
+			encoder–decoder training. This design enables us to probe structures of contrastive representations,
+			whether latent perturbations generate coherent visual changes, and how contrastive embeddings differ from
+			standard autoencoder embeddings.
+			</p>
+		</div>
+		<div class="margin-right-block">
+			<!-- Margin note that clarifies some detail #main-content-block for intro section. -->
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="bkgd">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Background and Related Work</h1>
+			<h2>What is Contrastive Learning?</h2>
+			<p>
+				<!-- INTRODUCE WHAT CONTRASTIVE LEARNING IS -->
+				The high-level goal of contrastive representation learning is to push similar sample pairs close to each
+				other while dissimilar ones are repelled in the learned embedding space. Contrastive learning is a very
+				flexible method, being able to be applied to both supervised and unsupervised settings, and is
+				particularly powerful when it comes to self-supervised learning in the unsupervised context [Lilian
+				Weng].
+			</p>
+			<p>
+				To achieve above property, positive/negative paris are defined from the data set, where positive pairs
+				are after augmentations of the same data and negative pairs are anything else. Given a positive pair
+				$(z_i, z_j)$ and a set of negative samples $\{z_k\}$ from the same batch, the
+				contrastive objective is:
+			</p>
+
+			<p>
+				\[
+				\mathcal{L}_{\text{InfoNCE}} = - \log
+				\frac{\exp(\mathrm{sim}(z_i, z_j)/\tau)}
+				{\sum_k \exp(\mathrm{sim}(z_i, z_k)/\tau)}
+				\]
+			</p>
+
+			<p>
+				where $\mathrm{sim}(\cdot, \cdot)$ denotes cosine similarity and $\tau$ is the
+				temperature parameter.
+
+				This loss implicitly encourages two geometric properties on the learned representation space: alignment
+				of positive pairs in latent space while separating negatives and uniformity in the distirbution of
+				representations across the hypersphere [9].
+			</p>
+
+			<h2>Contrastive Learning for Generation</h2>
+			<p>
+				<!-- TALK ABOUT HOW CONTRASTIVE LEARNING HAS BEEN USED FOR GENERATION -->
+				Although contrastive learning was originally developed for discriminative representation learning,
+				several recent works have explored its role within generative modeling frameworks by regularizing or
+				structuring the latent spaces of GANs and VAEs.
+			</p>
+
+			<p>
+				In GANs, contrastive objectives have been used to stabilize training and promote
+				semantic consistency: methods such as ContraGAN [12] encourage generated samples to occupy
+				distinguishable regions of feature
+				space, improving mode diversity and latent organization. Similarly, VAEs have integrated contrastive
+				losses to promote disentanglement and more semantically meaningful latents, as seen in contrastive-prior
+				VAEs [14] and contrastive graph-VAEs [16], where the contrastive signal
+				shapes the structure of the latent manifold even though sampling still occurs from a Gaussian prior.
+				Cross-modal systems such as CLIP [15] and contrastively aligned text–image generators
+				[13] further highlight the role of contrastive learning as a conditioning mechanism,
+				aligning modalities so that generative models can better map between them.
+			</p>
+
+			<p>
+				Across all these settings,
+				contrastive learning influences the geometry and semantics of the generative process, with contrastive
+				objectives being used as auxiliary losses. However, despite these applications of contrastive learning
+				in broader generative systems, virtually no work
+				directly studies whether a contrastive encoder’s latent space can function as a standalone generative
+				latent space. Reasons for this gap include:
+
+			<ul>
+				<li>Contrastive encoders are not trained with decoders, and therefore are not required to preserve
+					pixel-level detail or reconstructability [10].</li>
+				<li>The objective is discriminative, not generative; contrastive learning retains only the information
+					necessary for instance discrimination [11], often discarding
+					fine
+					texture or stroke-level details crucial for generative modeling.</li>
+				<li>
+					No natural sampling distribution is learned: contrastive representations lie on a unit hypersphere
+					without a principled generative prior, making latent sampling ill-posed without additional
+					constraints.</li>
+			</ul>
+
+			Thus, the question of whether contrastive latent spaces themselves contain coherent generative structure
+			remains almost completely unanswered.
+			</p>
+
+			<h2>Sampling the the Contrastive Latent Space</h2>
+			<p>
+				<!-- MENTION WORK IN SAMPLING FROM CONTRASTIVE LEARNING EMBEDDING SPACE -->
+
+				Isotropic priors have long been central in VAEs, normalizing flows, and diffusion models, where Gaussian
+				priors enable stable interpolation and sampling [17][18].
+				Recent generative modeling work has emphasized the importance of isotropic latent distributions for
+				stable sampling and interpolation.
+
+				For example, Wang & He, 2025 [7] explicitly regularizes encoder representations toward uniform
+				hyperspherical or isotropic Gaussian distributions, demonstrating that isotropic latent spaces
+				drastically improve generative robustness and smoothness.
+			</p>
+
+			<p>
+				Contrastive encoders, though, produce representations distributed anisotropically on the hypersphere,
+				with
+				dimension-wise variance imbalances and non-Gaussian angular structure [9].
+				Interpolation or sampling in such spaces often produces off-manifold latent vectors that decoders cannot
+				map to realistic images.
+				Thus a fundamental challenge when attempting generative sampling from contrastive embeddings is
+				ensuring that contrastive encoders can learn a
+				sufficiently isotropic latenet
+				space that will allow for generative priors.
+			</p>
+		</div>
+		<div class="margin-right-block">
+			<!-- Margin note that clarifies some detail #main-content-block for intro section. -->
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="methods">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Methods</h1>
+			<h2>Data</h2>
+			<p>
+				We used the MNIST dataset, a collection of 70,000 grayscale images of 28x28 handwritten digits from 0 to
+				9. 60,000 images were assigned to the training set, and 10,000 were assigned to the test set.
+				To train the contrastive encoder, we constructed positive pairs using two strategies. First, following
+				standard self-surpervised contrastive learning practice, we constructed positive pairs via
+				self-augmentation. We applied two independent stochastic augmentations to create two augmented views of
+				the same sample: Gaussian blur with a kernel size of 3 and a randomly sampled standard deviation in the
+				range [0.1, 2.0], followed by pixel-wise Gaussian noise with zero mean and standard deviation 0.1.
+				Second, we constructed the set of positive pairs by randomly selecting two different samples from the
+				same digit class. Unlike self-augmentation, which defines similarity through perturbations of a single
+				instance, the goal of this strategy was to explicitly encode class-level similarity and encourage the
+				latent space to group images by digit.
+			</p>
+
+			<h2>Base Autoencoder Architecture</h2>
+			<p>
+				We based our models on a publicly-released <a
+					href="https://towardsdatascience.com/a-practical-guide-to-contrastive-learning-26e912c0362f/">autoencoder
+					originally trained on Fashion MNIST</a>. The encoder consists of several convolutional layers that
+				downsample the input, followed by a multilayer perceptron (MLP) head that projects the feature maps into
+				a fixed latent dimension. The decoder mirrors this structure, first applying a linear layer to map the
+				latent vector back to feature maps that are then upsampled through a series of convolutional layers.
+				For the vanilla autoencoder and for all decoder training and fine-tuning stages, models were optimized
+				using a mean squared error (MSE) reconstruction loss between the input image $x$ and its reconstruction
+				$\hat{x}$:
+			</p>
+			<p>
+				\[
+				\mathcal{L}_{\text{rec}} = \|x - \hat{x}\|_2^2
+				\]
+			</p>
+			<p>
+				For contrastive autoencoders, we pretrained the encoders using the InfoNCE contrastive loss applied to
+				positive pairs constructed using the strategies described earlier in Background and Related Work.
+			</p>
+
+			<p>
+				We trained all models using the Adam optimizer with a learning rate of 2e-4, a batch size of 256, and
+				either 15 or 30 epochs depending on whether the model was being trained from scratch or fine-tuned.
+			</p>
+
+			<h2>Contrastive Learning on a Normalized Latent Space</h2>
+			<p>
+				We applied the contrastive loss directly to an L2-normalized version of the latent representation in
+				order to constrain embeddings to a hyperspherical geometry and promote a more isotropic latent
+				distribution. The goal was to facilitate generative sampling by constructing a latent space that adhered
+				to a defined prior—specifically, a uniform distribution over a unit hypersphere in the latent dimension.
+				To generate samples from models trained with a normalized latent space, we sampled from a uniform
+				distribution over the unit hypersphere.
+
+			</p>
+
+			<h2>Contrastive Learning on a Normalized Latent Projection</h2>
+			<p>
+				Instead of enforcing spherical constraints directly on the latent representation, we applied contrastive
+				learning to a normalized projection of the latent space. Specifically, the encoder outputs a latent
+				vector z, which is then L2-normalized, and it is this L2-normalized space that the contrastive loss is
+				applied to. This design follows standard practice in contrastive autoencoders and prevents the model
+				from arbitrarily inflating embedding magnitudes to push positive pairs together, rather than learning
+				meaningful angular separation.
+				However, unlike the previous contrastive learning strategy, it does not restrict latent embeddings to a
+				hypersphere. We wanted to compare whether this reduced constraint on the latent
+				distribution—particularly the freedom in per-dimension magnitudes—would lead to poorer generations than
+				in the normalized hyperspherical setting.
+				To generate samples from models trained without a normalized latent space, we sampled from a Gaussian
+				distribution with independent axes.
+
+			</p>
+
+			<h2>Decoder Training Regimes</h2>
+			<p>
+				We investigated two decoder training regimes: separate decoder training and joint encoder-decoder
+				fine-tuning. In the first regime, we froze the pretrained encoder and trained the decoder independently
+				using only the reconstruction loss across 30 epochs. In the second regime, we jointly fine-tuned the
+				pretrained encoder and the decoder end-to-end using the reconstruction loss.
+			</p>
+
+			<h2>Latent Noise Injection</h2>
+			<p>
+				During training, we also added Gaussian noise to the latent representation before decoding, so that the
+				decoder would learn to reconstruct the original sample $x$ with latent embedding $z$ given the noised
+				embedding $z' = z + \epsilon$, where $\epsilon \sim \mathcal{N}(0, 2I)$.
+				We chose $\sigma=0.02$. By training the decoder using noised latent embeddings, we wanted to evaluate
+				whether adding noise would help mitigate latent-space dead zones and thus improve generative behavior.
+			</p>
+
+			<h2>Evaluation</h2>
+			<p>
+				To evaluate generation quality, we randomly chose latent embeddings from a Gaussian prior
+				$\mathcal{N}(0, 2I)$ and evaluated the relative sample diversity and the Fréchet Inception Distance
+				(FID).
+				The sample diversity was computed using the average pairwise L2-distance between [insert number]
+				randomly selected pairs of generated images.
+				The FID was computed by extracting deep feature embeddings using a pretrained Inception-V3 network for
+				[insert number] each of real and generated images.
+				The resulting feature distributions were modeled as multivariate Gaussians with means $(\mu_r, \mu_g)$
+				and covariances $(\Sigma_r, \Sigma_g)$, and the FID was calculated as follows:
+			</p>
+
+			<p>
+				\[
+				\mathrm{FID} = \|\mu_r - \mu_g\|_2^2
+				+ \mathrm{Tr}\left(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2}\right)
+				\]
+			</p>
+
+			<p>
+				To assess the structure and smoothness of the learned latent spaces, we generated interpolation-based
+				visualizations for all of the encoders. For each model, we considered two types of interpolation. The
+				first was prior-based interpolation, where endpoints were sampled from the model’s assumed latent prior.
+				The purpose of this was to investigate potential dead zones, where the decoder had not learned to decode
+				from. The second was data-driven interpolation, where endpoints were obtained by encoding real samples.
+				The purpose of this was to investigate whether the latent space encoded geometric meaning in areas where
+				the decoder was trained on.
+			</p>
+			<p>For the first strategy, given models with unconstrained latents, endpoints were sampled from an isotropic
+				Gaussian distribution
+				with zero mean and independent dimensions. For hypersphere-normalized models, endpoints were sampled
+				uniformly from the unit hypersphere. For models with unconstrained latents, given two latent vectors
+				$z_0$ and $z_1,$​ we generated linear
+				interpolation paths using $z(t) = (1 - t) z_0 + t z_1$ with evenly spaced $t\in[0,1]$.
+				For models with normalized latents, we interpolated using spherical linear interpolation (SLERP) as
+				follows:
+			</p>
+			<p>
+				$$
+				\operatorname{SLERP}(\mathbf{z}_1, \mathbf{z}_2; t)
+				=
+				\frac{\sin((1 - t)\,\theta)}{\sin \theta}\,\mathbf{z}_1
+				+
+				\frac{\sin(t\,\theta)}{\sin \theta}\,\mathbf{z}_2,
+				\quad t \in [0,1]
+				$$
+			</p>
+
+			<p>
+				With the angle \( \theta \) defined as:
+			</p>
+
+			<p>
+				$$
+				\theta = \arccos\!\left(
+				\frac{\mathbf{z}_1^\top \mathbf{z}_2}
+				{\|\mathbf{z}_1\|_2 \, \|\mathbf{z}_2\|_2}
+				\right)
+				$$
+			</p>
+			<p>Each interpolated latent was decoded into the data space for visualization.</p>
+			<p>
+				Finally, to study the geometric and semantic structure of the learned embedding spaces, we project
+				high-dimensional
+				latent vectors \( z \in \mathbb{R}^d \) onto the two-dimensional unit circle \( S^1 \subset \mathbb{R}^2
+				\).
+				This mapping enables interpretable visualization of both class-level structure and global uniformity.
+				[9].
+			</p>
+
+			<p>
+				To examine how different digit classes are organized in the latent space, we apply Principal Component
+				Analysis (PCA) to reduce embeddings from dimension \( d \) to 2.
+
+
+				PCA is an appropriate choice for this analysis because it preserves the
+				directions of greatest variance in the data; as a result, it tends to reveal clusters, separations, and
+				internal structure that reflect how the encoder organizes the semantic content of images.
+
+				PCA identifies the directions of
+				maximum
+				variance, producing a projection
+			</p>
+
+			<p style="text-align:center;">
+				\( z_{\text{PCA}} = W^\top (z - \mu), \qquad W \in \mathbb{R}^{d \times 2}, \)
+			</p>
+
+			<p>
+				where \( W \) consists of the top two eigenvectors of the empirical covariance matrix and \( \mu \) is
+				the mean
+				embedding. Because class
+				structure induces directionally coherent variance, PCA projections reliably expose class-separable
+				organization when such structure exists in the latent space. After projection into \( \mathbb{R}^2 \),
+				we normalize each point onto the unit circle:
+			</p>
+
+			<p style="text-align:center;">
+				\( \hat{z} = \frac{z_{\text{PCA}}}{\|z_{\text{PCA}}\|_2}. \)
+			</p>
+
+			<p>
+				By plotting these normalized embeddings per class, we observe how tightly clusters form, how separable
+				different digits are, and how training regimes alter the semantic geometry of the embedding space.
+				PCA is used specifically for <em>class-conditional visualization</em> because it reveals meaningful
+				structure
+				and separation between data groups.
+			</p>
+
+			<p>
+				To evaluate global uniformity and isotropy, key features needed to avoid "dead zones" in the latenent
+				space and encourage meaningful decoding/generation, we
+				instead use random orthonormal projections. Unlike PCA, which highlights directions of high variance,
+				random projection preserves the unbiased distributional structure of the embeddings.
+			</p>
+
+			<p>
+				We begin with a Gaussian random matrix \( G \in \mathbb{R}^{d \times 2} \) whose entries follow
+				\( G_{ij} \sim \mathcal{N}(0, 1) \), and orthonormalize it using QR decomposition:
+			</p>
+
+			<p style="text-align:center;">
+				\( R = \operatorname{qr}(G), \qquad R \in \mathbb{R}^{d \times 2}. \)
+			</p>
+
+			<p>
+				Embeddings are then projected as
+			</p>
+
+			<p style="text-align:center;">
+				\( z_{\text{RP}} = z R, \qquad \hat{z} = \frac{z_{\text{RP}}}{\|z_{\text{RP}}\|_2}. \)
+			</p>
+
+			<p>
+				To characterize hyperspherical uniformity, we compute each point’s angular coordinate
+				\( \theta = \operatorname{atan2}(\hat{z}_y, \hat{z}_x) \) and estimate its density using kernel
+				density estimation (KDE). A uniform angular density indicates isotropic distributed embeddings,
+				whereas peaks or gaps correspond to anisotropy or latent collapse. Random projections therefore
+				serve as a principled tool for measuring the geometric regularity of the learned representation space,
+				a property increasingly valued in modern generative modeling
+				[7].
+			</p>
+
+			<p>
+				Thus, PCA projections are used to reveal semantic, class-conditional organization, while
+				random projections are used to measure hyperspherical uniformity and isotropy of the learned
+				latent space. Together, these complementary visualization strategies provide a detailed view of the
+				geometric and semantic structure induced by contrastive and autoencoding training regimes.
+			</p>
+
+
+		</div>
+		<div class="margin-right-block">
+			<!-- margin notes -->
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="results">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Results</h1>
+			<h2>Models Naming Convention</h2>
+			<table border="1" cellpadding="8" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Model</th>
+						<th>Vanilla / Contrastive</th>
+						<th>Normalized Latent</th>
+						<th>Augmented Positive Pairs</th>
+						<th>Decoder Training</th>
+						<th>Noise Added to Latent</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>VAN-Jnt-N0</td>
+						<td>Vanilla</td>
+						<td>❌</td>
+						<td>❌</td>
+						<td>Joint</td>
+						<td>❌</td>
+					</tr>
+
+					<tr>
+						<td>CAE-Aug-Norm-Sep-N0</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>✅</td>
+						<td>Separate</td>
+						<td>❌</td>
+					</tr>
+					<tr>
+						<td>CAE-Cls-Norm-Sep-N0</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>❌</td>
+						<td>Separate</td>
+						<td>❌</td>
+					</tr>
+
+					<tr>
+						<td>CAE-Aug-Sep-N0</td>
+						<td>Contrastive</td>
+						<td>❌</td>
+						<td>✅</td>
+						<td>Separate</td>
+						<td>❌</td>
+					</tr>
+					<tr>
+						<td>CAE-Cls-Sep-N0</td>
+						<td>Contrastive</td>
+						<td>❌</td>
+						<td>❌</td>
+						<td>Separate</td>
+						<td>❌</td>
+					</tr>
+
+					<tr>
+						<td>CAE-Aug-Norm-Jnt-N0</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>✅</td>
+						<td>Joint</td>
+						<td>❌</td>
+					</tr>
+					<tr>
+						<td>CAE-Cls-Norm-Jnt-N0</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>❌</td>
+						<td>Joint</td>
+						<td>❌</td>
+					</tr>
+
+					<tr>
+						<td>CAE-Aug-Norm-Sep-N+</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>✅</td>
+						<td>Separate</td>
+						<td>✅</td>
+					</tr>
+					<tr>
+						<td>CAE-Cls-Norm-Sep-N+</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>❌</td>
+						<td>Separate</td>
+						<td>✅</td>
+					</tr>
+
+					<tr>
+						<td>CAE-Aug-Norm-Jnt-N+</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>✅</td>
+						<td>Joint</td>
+						<td>✅</td>
+					</tr>
+					<tr>
+						<td>CAE-Cls-Norm-Jnt-N+</td>
+						<td>Contrastive</td>
+						<td>✅</td>
+						<td>❌</td>
+						<td>Joint</td>
+						<td>✅</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2>Structures in the Contrastive Latent Space</h2>
+			<p>
+				To understand how different training strategies shape the learned embedding space, we visualize the
+				class-conditional latent distributions using a PCA projection from the original 64-dimensional latent
+				space down to two dimensions.
+				The figure below shows the visualization of the classes. Not only a select few model results are show,
+				but the full image is in the colab in the appendix.
+			</p>
+			<img src="figures/class_structures.png" style="width: 90%;" alt="Classes Projected into S1">
+			<p>
+				Across the contrastive models in the figure, we observe clear and distinct grouping of digit classes.
+				Importantly, this occurs not only in the “Cls” models—where positive pairs are explicitly selected from
+				the same class—but also in the “Aug” models, where positive pairs come purely from noise-augmented
+				views of the same input image, without any label information. The emergence of coherent clusters under
+				augmentation-based contrastive objectives indicates that the encoder discovers stable semantic features
+				invariant to augmentation. In other words, the geometry of the embedding space reflects genuine
+				semantic similarity learned through invariances, demonstrating that contrastive learning can recover
+				class-aligned structure even in fully unsupervised settings.
+			</p>
+
+			<p>
+				Within each class, the shape and spread of the distributions differ noticeably. Some digits form
+				compact,
+				highly concentrated clusters (e.g., 1, 0), while others appear more elongated or diffuse (e.g., 5, 8).
+				These
+				differences mirror the intrinsic variability of handwritten digits: digits with greater stylistic
+				diversity
+				naturally occupy a broader region of latent space. Moreover, the PCA projections reveal proximity
+				relationships that resemble human perceptual similarity—for example, digits such as 1 and 7 or 3 and 8
+				often occupy neighboring regions. This alignment with human intuition further demonstrates that the
+				latent space captures meaningful semantic and morphological structure.
+			</p>
+
+			<p>
+				In contrast, the vanilla autoencoder (VAN-Jnt-N0) exhibits a noticeably different geometry. Instead of a
+				single coherent cluster per class, several classes show multiple “peaks” or submodes within their
+				distribution. Because the autoencoder is trained solely with a reconstruction objective and lacks a
+				mechanism for enforcing invariance, stylistically different variants of the same digit may map to
+				entirely different regions of latent space. This fragmentation produces multi-modal and less coherent
+				class clusters. By comparison, contrastive learning—through alignment of augmented views and a global
+				spreading effect—produces significantly more structured, unified, and interpretable class
+				representations.
+			</p>
+
+			<p>
+				Overall, these PCA-based visualizations reveal three key insights: (1) contrastive learning yields
+				strongly
+				organized, semantically meaningful class clusters even without class-based supervision; (2) the internal
+				structure of each class reflects both data variability and perceptual similarity; and (3) vanilla
+				autoencoders produce multi-modal and less organized latent clusters, highlighting the effectiveness of
+				contrastive objectives for learning clean and interpretable latent geometry.
+			</p>
+
+
+			<h2>Reconstruction Performance</h2>
+
+			<img src="figures/test_mse_by_model.png" style="width: 90%;" alt="Test MSE By Model">
+			<img src="figures/reconstruction_grid_with_original.png" style="width: 90%;" alt="Reconstruction Grid">
+
+			<p>
+				Our initial goal was to assess decoder reconstruction performance as a sanity check—specifically to
+				determine whether any models suffered from representation collapse in the latent that would render
+				further analysis of the decoder uninformative.
+				For qualitative visualization, we selected a random digit from each class in the test set and compared
+				the corresponding reconstructions across models.
+				Consistent with the quantitative results, we observed that models with higher test MSE generally
+				produced visibly poorer reconstructions, whereas lower-MSE models yielded sharper and more accurate
+				outputs.
+				In general, since all decoders produced relatively coherent results, we proceeded on analysis with all
+				of them.
+			</p>
+
+			<h2>Generation Performance</h2>
+			<img src="figures/fid_comparison.png" style="width: 90%;" alt="FID Scores">
+			<img src="figures/interp_bwn_real.png" style="width: 70%;" alt="Interpolation Between Real Samples">
+			<figcaption>The figure above shows interpolation between two real samples (on the hypersphere for
+				normalized latent spaces and a linear interpolation for unnormalized latent spaces). </figcaption>
+			<img src="figures/interp_bwn_random.png" style="width: 70%;" alt="Interpolation Between Random Samples">
+			<figcaption>The figure above shows interpolation between two randomly sampled points from the prior (uniform
+				hypersphere for normalized latent spaces and a Gaussian distribution for unnormalized latent spaces).
+			</figcaption>
+
+			<h2>Latent Space Geometry and Its Relationship to Generation Quality</h2>
+			<img src="figures/distribution.png" style="width: 50%;" alt="Projection to Two Random Dimensions">
+			<p>The figure above visualizes the latent distributions for each model by projecting randomly selected pairs
+				of latent dimensions into two dimensions. We chose to project randomly selected pairs instead of
+				PCA-based projections because random coordinate projections avoid introducing variance-based bias, thus
+				providing more unbiased insight into the geometric structure in the latent space. As expected, models
+				with normalized latents exhibit projections constrained to the unit circle, whereas unnormalized models
+				display unconstrained, anisotropic spreads.</p>
+			<p>Among the normalized models, CAE-Aug-Norm-Sep-N0/N+ exhibits nearly full coverage of the circular
+				manifold, despite mild density variations. This geometric property aligns closely with its relatively
+				stronger generative behavior: interpolations between real samples are smooth and semantically meaningful
+				(e.g., clear morphing between the digits 7 to 2), and the model achieves comparatively low FID. In
+				contrast, CAE-Cls-Norm-Sep-N0/N+ shows severe concentration along a small arc of the circle. Its latent
+				has many dead zones, which with poor interpolation behavior—intermediate latent codes often decode to
+				nonsensical samples—and comparatively poor FID. This indicates that even when normalization is enforced,
+				inadequate coverage of the hypersphere severely limits generative smoothness and diversity.</p>
+			<p>For the unnormalized models, CAE-Aug-Sep-N0 displays a broader and more diffuse latent spread than
+				CAE-Cls-Sep-N0, which is consistent with its lower FID. Interestingly, despite its poorer overall
+				generative metrics, CAE-Cls-Sep-N0 yields a more interpretable interpolation between two real samples.
+				One plausible explanation is that class-based positives induce denser, more compact clustering, allowing
+				interpolation within a specific local region of the latent space that the decoder has learned well;
+				however, this is just a hypothesis.</p>
+			<p>The jointly trained normalized models, CAE-Aug-Norm-Jnt-N0 and CAE-Cls-Norm-Jnt-N0, perform among the
+				worst in generation quality. Their projections reveal extreme concentration in small regions of the
+				hypersphere, which reflects strong latent collapse. This behavior is consistent with their very high FID
+				and the fact that their interpolation visualizations are nonsensical for intermediate embeddings. Our
+				hypothesis is that joint training disrupts the geometric structure imposed by the contrastive objective
+				during finetuning, since contrastive alignment is no longer explicitly enforced while the decoder is
+				optimized.</p>
+			<p>Finally, adding noise during decoder training (N+) does not appear to substantially alter the geometric
+				structure of the latent space or improve generative performance. We thought noise would encourage
+				robustness to latent perturbations, but its effect on FID and quality of interpolation visualizations
+				was minimal.</p>
+
+			<h1>Conclusion</h1>
+			<p>The main takeaways we found through our experiments are as follows:</p>
+			<ol>
+				<li>
+					Augmentation-based positive pairs consistently outperform class-based positives
+					in both latent coverage and generation quality.
+				</li>
+				<li>
+					Separate decoder training significantly outperforms joint training, likely due to
+					better preservation of contrastive geometry.
+				</li>
+				<li>
+					Latent normalization alone is insufficient—uniform hyperspherical coverage is
+					critical for achieving smooth interpolations and low FID.
+				</li>
+			</ol>
+
+		</div>
+		<div class="margin-right-block">
+			<!-- margin notes -->
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="imp_lim">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Implications and limitations</h1>
+			<p>
+				A limitation of our sampling procedure was that rather than sampling from a learned latent distribution,
+				we relied on generic priors (Gaussian with independent dimensions or uniform hypersphere in the case of
+				unnormalized and normalized latent spaces, respectively) for generation. An alternative and potentially
+				more expressive approach would be to estimate empirically learned latent distributions for each digit
+				class and sample directly from those class-specific distributions to decode into new samples.
+				Additionally, all of our models failed to interpolate between two random samples from the specific
+				generic prior. Even in the case of restricting the latent space to a unit hypersphere, it appeared that
+				the learned latent embeddings did not saturate a uniform distribution, thus resulting in dead zones when
+				decoding for generation. In the future, it would be a good idea to explore explicitly enforcing a
+				uniform distribution over the hypersphere during training, perhaps by incorporating an explicit
+				regularization term. This would help align the learned latent distribution with the specified prior,
+				potentially improving generation by avoiding dead zones.
+			</p>
+		</div>
+		<div class="margin-right-block">
+			<!-- margin notes -->
+		</div>
+	</div>
+
+	<div class="content-margin-container" id="ref">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>References</h1>
+			<a id="ref_1"></a>[1] Aaron van den Oord, Yazhe Li, and Oriol Vinyals. <a
+				href="https://doi.org/10.48550/arXiv.1807.03748">Representation Learning with Contrastive Predictive
+				Coding</a>. 2019<br><br>
+
+			<a id="ref_1"></a>[2] Juan C Olamendy. <a
+				href="https://medium.com/@juanc.olamendy/real-world-ml-contrastive-learning-the-power-of-grasping-the-data-essence-da0fc88801e7">Real-world
+				ML: Contrastive Learning, The Power of Grasping the Data Essence</a>. 2024<br><br>
+
+			<a id="ref_1"></a>[3] Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, and Ross Girshick. <a
+				href="https://doi.org/10.48550/arXiv.1911.05722">Momentum Contrast for Unsupervised Visual
+				Representation Learning</a>. 2020<br><br>
+
+			<a id="ref_1"></a>[4] Kaizen. <a href="https://shubham-shinde.github.io/blogs/contrastive/">Contrastive
+				Loss on MNIST Dataset</a>. 2023<br><br>
+
+			<a id="ref_1"></a>[5] Lilian Weng. <a
+				href="https://lilianweng.github.io/posts/2021-05-31-contrastive/">Contrastive Representation
+				Learning</a>. 2021<br><br>
+
+			<a id="ref_1"></a>[6] Mengliu Zhao. <a
+				href="https://towardsdatascience.com/a-practical-guide-to-contrastive-learning-26e912c0362f/">A
+				Practical Guide to Contrastive Learning</a>. 2024<br><br>
+
+			<a id="ref_1"></a>[7] Runqian Wang, Kaiming He. <a href="https://doi.org/10.48550/arXiv.2506.09027">Diffuse
+				and Disperse: Image Generation with Representation Regularization</a>. 2025<br><br>
+
+			<a id="ref_1"></a>[8] Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey Hinton. <a
+				href="https://doi.org/10.48550/arXiv.2002.05709">A Simple Framework for Contrastive Learning of Visual
+				Representations</a>. 2020<br><br>
+
+			<a id="ref_1"></a>[9] Tongzhou Wang, Phillip Isola. <a
+				href="https://doi.org/10.48550/arXiv.2005.10242">Understanding
+				Contrastive Representation Learning through Alignment and Uniformity on the Hypersphere</a>.
+			2022<br><br>
+
+			<a id="ref_1"></a>[10] Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. <a
+				href="https://proceedings.mlr.press/v119/chen20j.html">A Simple Framework for Contrastive Learning of
+				Visual
+				Representations
+			</a>.
+			2020<br><br>
+
+			<a id="ref_1"></a>[11] Sanjeev Arora, Hrishikesh Khandeparkar, Mikhail Khodak, Orestis Plevrakis, Nikunj
+			Saunshi. <a href="https://doi.org/10.48550/arXiv.1902.09229">A Theoretical Analysis of Contrastive
+				Unsupervised Representation Learning</a>. 2019<br><br>
+
+			<a id="ref_1"></a>[12] Minguk Kang and Jaesik Park. <a
+				href="https://proceedings.neurips.cc/paper/2020/file/f490c742cd8318b8ee6dca10af2a163f-Paper.pdf">ContraGAN:
+				Contrastive Learning for Conditional
+				Image Generation</a>. 2020<br><br>
+
+			<a id="ref_1"></a>[13] Han Zhang, Jing Yu Koh, Jason Baldridge, Honglak Lee, Yinfei Yang. <a
+				href="https://doi.org/10.48550/arXiv.2101.04702">Cross-Modal Contrastive Learning for Text-to-Image
+				Generation</a>. 2021<br><br>
+
+			<a id="ref_1"></a>[14] Jack Klys, Jake Snell, Richard Zemel. <a
+				href="https://doi.org/10.48550/arXiv.1812.06190">Learning Latent Subspaces in Variational Autoencoders
+			</a>. 2018<br><br>
+
+			<a id="ref_1"></a>[15] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini
+			Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever. <a
+				href="https://doi.org/10.48550/arXiv.2103.00020">Learning Transferable Visual Models From Natural
+				Language Supervision
+			</a>. 2021<br><br>
+
+			<a id="ref_1"></a>[16] Fan-Yun Sun, Jordan Hoffmann, Vikas Verma, Jian Tang. <a
+				href="https://doi.org/10.48550/arXiv.1908.01000">InfoGraph: Unsupervised and Semi-supervised Graph-Level
+				Representation Learning via Mutual Information Maximization</a>. 2019<br><br>
+
+			<a id="ref_1"></a>[17] Diederik P Kingma and Max Welling. <a
+				href="https://doi.org/10.48550/arXiv.1312.6114">Auto-Encoding Variational Bayes</a>. 2013<br><br>
+
+			<a id="ref_1"></a>[18] Danilo Jimenez Rezende and Shakir Mohamed. <a
+				href="https://doi.org/10.48550/arXiv.1505.05770">Variational Inference with Normalizing Flows</a>.
+			2015<br><br>
+		</div>
+		<div class="margin-right-block"></div>
+	</div>
+
+	<div class="content-margin-container" id="appx">
+		<div class="margin-left-block">
+		</div>
+		<div class="main-content-block">
+			<h1>Appendix</h1>
+			<p>Link colab notebook: <a
+					href="https://colab.research.google.com/drive/1veWPiqwNUyCu8ERXlkKC3TwVfvgei3qd?usp=sharing">Understanding
+					Google Colab Experiments</a></p>
+		</div>
+		<div class="margin-right-block"></div>
+	</div>
+
+</body>
+
+</html>
