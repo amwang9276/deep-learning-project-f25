@@ -1,4 +1,4 @@
-# Link to Google Colab Notebook for training on GPUs: https://colab.research.google.com/drive/1veWPiqwNUyCu8ERXlkKC3TwVfvgei3qd?usp=sharing
+# Link to Google Colab Notebook for executable training code on GPUs: https://colab.research.google.com/drive/1veWPiqwNUyCu8ERXlkKC3TwVfvgei3qd?usp=sharing
 
 # Enforcing Isotropic Embedding Spaces for Contrastive-Generative Models on MNIST
 
